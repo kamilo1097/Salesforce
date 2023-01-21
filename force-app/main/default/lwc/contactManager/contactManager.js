@@ -60,7 +60,6 @@ export default class ContactManager extends LightningElement {
                     return getContacts();
                 })
                 .then(result => {
-                    console.log(result);
                     this.contacts = result;
                 })
                 .catch(error => {
