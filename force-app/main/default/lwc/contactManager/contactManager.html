@@ -1,0 +1,75 @@
+<template>
+    <lightning-card title="Contact Manager">
+        <div class="slds-m-around_medium">
+            <template if:true={contacts}>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col">
+                                <div class="slds-truncate" title="First Name">First Name</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Last Name">Last Name</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Email">Email</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Phone">Phone</div>
+                            </th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={contacts} for:item="contact">
+                            <tr key={contact.Id}>
+                                <td>
+                                    <div class="slds-truncate" title={contact.FirstName}>{contact.FirstName}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title={contact.LastName}>{contact.LastName}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title={contact.Email}>{contact.Email}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" title={contact.Phone}>{contact.Phone}</div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate">
+                                        <lightning-button-icon icon-name="utility:edit" variant="border-filled"
+                                            onclick={handleEdit} value={contact.Id} title="Edit">
+                                        </lightning-button-icon>
+                                        <lightning-button-icon icon-name="utility:delete" variant="border-filled"
+                                            onclick={handleDelete} value={contact.Id} title="Delete">
+                                        </lightning-button-icon>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+            <template if:false={contacts}>
+                <div class="slds-align_absolute-center slds-m-top_medium">No contacts found.</div>
+            </template>
+            <div class="slds-m-top_medium">
+                <lightning-input type="text" label="First Name" value={contact.FirstName}
+                    onchange={handleFirstNameChange}></lightning-input>
+                <lightning-input type="text" label="Last Name" value={contact.LastName} onchange={handleLastNameChange}>
+                </lightning-input>
+                <lightning-input type="email" label="Email" value={contact.Email} onchange={handleEmailChange}>
+                </lightning-input>
+                <lightning-input type="tel" label="Phone" value={contact.Phone} onchange={handlePhoneChange}>
+                </lightning-input>
+                <div class="slds-m-top_medium">
+                    <lightning-button variant="brand" onclick={handleSave} label={buttonLabel}>
+                    </lightning-button>
+                    <template if:true={editMode}>
+                        <lightning-button variant="neutral" onclick={handleCancel} label="Cancel"></lightning-button>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>
